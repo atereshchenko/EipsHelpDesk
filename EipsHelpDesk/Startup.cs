@@ -175,6 +175,10 @@ namespace EipsHelpDesk
 				return false;
 			}
 		}
+		/// <summary>
+		/// ћктод создани€ Ѕазы данных
+		/// </summary>
+		/// <returns></returns>
 		public bool CreateBD()
 		{
 			try
