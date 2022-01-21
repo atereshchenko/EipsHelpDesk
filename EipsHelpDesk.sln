@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EipsHelpDesk", "EipsHelpDesk\EipsHelpDesk.csproj", "{F25BE1B9-3289-464B-A7EA-6E4FEC1EEF78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyncUsersAndDeparts", "SyncUsersAndDeparts\SyncUsersAndDeparts.csproj", "{72B5221B-E0D9-4DFA-995E-B17EF0A08C42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F25BE1B9-3289-464B-A7EA-6E4FEC1EEF78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F25BE1B9-3289-464B-A7EA-6E4FEC1EEF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F25BE1B9-3289-464B-A7EA-6E4FEC1EEF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F25BE1B9-3289-464B-A7EA-6E4FEC1EEF78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B5221B-E0D9-4DFA-995E-B17EF0A08C42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B5221B-E0D9-4DFA-995E-B17EF0A08C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B5221B-E0D9-4DFA-995E-B17EF0A08C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B5221B-E0D9-4DFA-995E-B17EF0A08C42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5FF860D-CB6B-4363-826A-D716A27BDD7D}
+	EndGlobalSection
+EndGlobal

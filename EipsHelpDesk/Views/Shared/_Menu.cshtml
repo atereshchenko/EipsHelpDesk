@@ -1,0 +1,43 @@
+﻿@using EipsHelpDesk.Models
+@model IssueViewModel
+
+<li class="nav-item has-treeview" id="issue-li">
+    <a href="#" class="nav-link" id="issue-a">
+        <i class="fas fa-mail-bulk"></i>
+        <p>
+            Обращения
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">       
+        <li class="nav-item">
+            <a asp-controller="issue" asp-action="index" class="nav-link" id="issue-list-a">
+                <i class="fas fa-money-check"></i>
+                <p> Просмотр списка</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="issue" asp-action="create" class="nav-link" id="issue-create-a">
+                <i class="fas fa-plus"></i>
+                <p> Создать новое</p>
+            </a>
+        </li>
+    </ul>
+</li>
+
+@if (Model.User.Role?.Id == 1)
+{
+    <li class="nav-header">Администрирование</li>
+    <li class="nav-item">
+        <a asp-controller="users" asp-action="index" class="nav-link" id="issue-user-a">
+            <i class="fas fa-users"></i>
+            <p>Пользователи системы</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="sessions" asp-action="index" class="nav-link" id="issue-ssesions-a">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <p>Сессии пользователей</p>
+        </a>
+    </li>
+}

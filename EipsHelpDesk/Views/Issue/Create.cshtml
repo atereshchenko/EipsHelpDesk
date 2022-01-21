@@ -1,0 +1,86 @@
+﻿@*@model EipsHelpDesk.Entities.Issue*@
+@using EipsHelpDesk.Models
+@model IssueViewModel
+@{
+    Layout = "_Layout";
+}
+@await Html.PartialAsync("_Breadcrumb")
+
+@if (ViewBag.Error != "")
+{
+    @await Html.PartialAsync("_Error")
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-0">
+                    <div class="card-header">
+                        <h3 class="card-title">Создание обращения</h3>
+                    </div>
+                    <form role="form" asp-controller="issue" asp-action="create" method="post" id="createissue" novalidate="novalidate">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Issue.categoryid">Категория</label>
+                                        <select class="form-control select2" style="width: 100%" asp-for="@Model.Issue.categoryid" asp-items="@(new SelectList(ViewBag.Category, "Value", "Text"))">
+                                            <option value="NULL">--выберите категорию обращения--</option>
+                                        </select>
+                                        <input type="hidden" asp-for="@Model.Issue.categoryid" />
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Issue.initiatorid">Инициатор</label>
+                                        <select class="form-control select2" style="width: 100%" asp-for="@Model.Issue.initiatorid" asp-items="@(new SelectList(ViewBag.Initiator, "Value", "Text"))">
+                                            <option value="NULL">--укажите инициатора обращения--</option>
+                                        </select>
+                                        <input type="hidden" asp-for="@Model.Issue.initiatorid" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Issue.subject">Тема обращения</label>
+                                <input asp-for="@Model.Issue.subject" type="text" class="form-control" placeholder="укажите тему обращения...">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Issue.text">Текст обращения</label>
+                                <textarea asp-for="@Model.Issue.text" id="textarea" class="form-control" rows="5" placeholder="текст вашего обращения..."></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button asp-for="Value" id="buttsave" type="submit" class="btn btn-success">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/site.js"></script>
+<script>
+    menuopen("issue-li");
+    menuactive("issue-a");
+    menuactive("issue-create-a");
+</script>
+@section VendersScripts
+{
+    <!--Для работы с dropdown-->
+    <script src="~/plugins/select2/js/select2.full.min.js"></script>
+    @*<script src="~/dist/js/demo.js"></script>*@
+}
+@section CustomScripts
+{
+    <script>
+        $(function () {
+            $('.select2').select2()
+        })
+                        //$("#categoryid").select2({
+                        //    placeholder: "необходимо указать категорию обращения",
+                        //    theme: "bootstrap4",
+                        //    allowClear: false
+                        //});
+    </script>
+}

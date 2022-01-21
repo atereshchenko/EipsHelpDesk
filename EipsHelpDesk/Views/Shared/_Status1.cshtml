@@ -1,0 +1,197 @@
+﻿@using EipsHelpDesk.Models
+@model IssueViewModel
+
+@if (ViewBag.Error != "")
+{
+    @await Html.PartialAsync("_Error")
+}
+
+<div class="card card-@Model.Issue.Status.color card-outline">
+    <div class="card-header border-0">
+        <h2 class="card-title">@Model.Issue.Initiator.Name</h2>
+        <div class="card-tools">
+            <span class="time">
+                <small> @Model.Issue.createdon </small>
+                <small class="badge bg-@Model.Issue.Status.color"> @Model.Issue.Status.name </small>
+            </span>
+        </div>
+    </div>
+    @if (Model.User.Role.Id == 1 || Model.User.Role.Id == 2)
+    {
+<form role="form" asp-action="edit" asp-controller="issue" asp-route-id="@Model.Issue.id">
+    @Html.HiddenFor(m => m.Issue.id)
+    @Html.HiddenFor(m => m.Issue.createdon)
+    @Html.HiddenFor(m => m.Issue.createdbyid)
+    @Html.HiddenFor(m => m.Issue.modifiedon)
+    @Html.HiddenFor(m => m.Issue.modifiedbyid)
+    @Html.HiddenFor(m => m.Issue.initiatorid)
+    @Html.HiddenFor(m => m.Issue.departmentid)
+    @Html.HiddenFor(m => m.Issue.lifecycleid)
+    @Html.HiddenFor(m => m.Issue.factdate)
+    @Html.HiddenFor(m => m.Issue.responsibleid)
+    @Html.HiddenFor(m => m.Issue.solution)    
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.categoryid">Категория</label>
+                    <select class="form-control select2" style="width: 100%" asp-for="@Model.Issue.categoryid" asp-items="@(new SelectList(ViewBag.Category, "Value", "Text"))">
+                        @*<option value="NULL">--Параметр отсутствует--</option>*@
+                    </select>
+                    <input type="hidden" asp-for="@Model.Issue.categoryid" />
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.responsibleid">Ответственный</label>
+                    <input type="text" value="@Model.Issue.Responsible.Name" asp-for="@Model.Issue.responsibleid" class="form-control" id="inputSubject" disabled />
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.planneddate">Плановая дата</label>
+                    <div class="input-group date" id="planDateCalendar" data-target-input="nearest">
+                        <input value="@ViewBag.PlannedDate" asp-for="@Model.Issue.planneddate" type="text" class="form-control datetimepicker-input" data-target="#planDateCalendar" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-MM-dd HH:MM" data-mask="" inputmode="numeric" id="inputPlanDateCalendar">
+                        <div class="input-group-append" data-target="#planDateCalendar" data-toggle="datetimepicker">
+                            <script></script>
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.statusid">Статус</label>
+                    <select class="form-control select2" asp-for="@Model.Issue.statusid" asp-items="@(new SelectList(ViewBag.Status, "Value", "Text"))">
+                        @*<option value="NULL">--Параметр отсутствует--</option>*@
+                    </select>
+                    <input type="hidden" asp-for="@Model.Issue.statusid" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.subject">Заголовок</label>
+                    <input asp-for="@Model.Issue.subject" value="@Model.Issue.subject" type="text" class="form-control" id="inputSubject" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.text">Описание</label>
+                    <textarea asp-for="@Model.Issue.text" type="text" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label asp-for="@Model.Issue.solution">Решение</label>
+                        <textarea asp-for="@Model.Issue.solution" type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+    <div class="card-footer">
+        <a asp-controller="issue" asp-action="index" class="btn btn-outline-secondary btn-sm" role="button">Назад</a>
+        <button type="submit" class="btn btn-outline-primary btn-sm float-right">Сохранить</button>
+    </div>
+</form>
+    }
+    else if (ViewBag.UserId == ViewBag.ResponsibleId)
+    {
+        <form role="form" asp-action="edit" asp-controller="issue" asp-route-id="@Model.Issue.id">
+            @Html.HiddenFor(m => m.Issue.id)
+            @Html.HiddenFor(m => m.Issue.createdon)
+            @Html.HiddenFor(m => m.Issue.createdbyid)
+            @Html.HiddenFor(m => m.Issue.modifiedon)
+            @Html.HiddenFor(m => m.Issue.modifiedbyid)
+            @Html.HiddenFor(m => m.Issue.initiatorid)
+            @Html.HiddenFor(m => m.Issue.departmentid)
+            @Html.HiddenFor(m => m.Issue.statusid)
+            @Html.HiddenFor(m => m.Issue.lifecycleid)
+            @Html.HiddenFor(m => m.Issue.factdate)
+            @Html.HiddenFor(m => m.Issue.responsibleid)
+            @Html.HiddenFor(m => m.Issue.subject)
+            @Html.HiddenFor(m => m.Issue.text)
+            @Html.HiddenFor(m => m.Issue.solution)
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label asp-for="@Model.Issue.categoryid">Категория</label>
+                            <select class="form-control select2" style="width: 100%" asp-for="@Model.Issue.categoryid" asp-items="@(new SelectList(ViewBag.Category, "Value", "Text"))">
+                                @*<option value="NULL">--Параметр отсутствует--</option>*@
+                            </select>
+                            <input type="hidden" asp-for="@Model.Issue.categoryid" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label asp-for="@Model.Issue.responsibleid">Ответственный</label>
+                            <input type="text" value="@Model.Issue.Responsible.Name" asp-for="@Model.Issue.responsibleid" class="form-control" id="inputSubject" disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label asp-for="@Model.Issue.planneddate">Плановая дата</label>
+                            <div class="input-group date" id="planDateCalendar" data-target-input="nearest">
+                                <input value="@ViewBag.PlannedDate" asp-for="@Model.Issue.planneddate" type="text" class="form-control datetimepicker-input" data-target="#planDateCalendar" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-MM-dd HH:MM" data-mask="" inputmode="numeric" id="inputPlanDateCalendar">
+                                <div class="input-group-append" data-target="#planDateCalendar" data-toggle="datetimepicker">
+                                    <script></script>
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label asp-for="@Model.Issue.subject">Заголовок</label>
+                            <input asp-for="@Model.Issue.subject" value="@Model.Issue.subject" type="text" class="form-control" id="inputSubject" disabled />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label asp-for="@Model.Issue.text">Описание</label>
+                            <textarea asp-for="@Model.Issue.text" type="text" class="form-control" rows="3" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label asp-for="@Model.Issue.solution">Решение</label>
+                            <textarea asp-for="@Model.Issue.solution" type="text" class="form-control" rows="3" disabled></textarea>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+            <div class="card-footer">
+                <a asp-controller="issue" asp-action="index" class="btn btn-outline-secondary btn-sm" role="button">Назад</a>
+                <button type="submit" class="btn btn-outline-primary btn-sm float-right">Применить</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        @await Html.PartialAsync("_Viewing")
+    }
+</div>

@@ -1,0 +1,31 @@
+SELECT * FROM public.users where id = 641;
+SELECT * FROM public.users order by name;
+
+SELECT * FROM public.users Where Name like '%Ермишина%';
+SELECT * FROM public.users Where Name like '%Варивода%';
+SELECT * FROM public.users where isactual = false;
+SELECT * FROM public.roles;
+
+SELECT * FROM public.issue where id = 31;
+SELECT * FROM public.issue where responsibleid = 298 and statusid <> 3 and planneddate < (now()::timestamp(0) + interval '1 day' );
+SELECT * FROM public.issue where id=21;
+SELECT * FROM public.sessions order by id desc;
+SELECT * FROM public.lifecycle where issueid = 16 order by id;
+
+/*все ответственные по жизненному циклу*/
+select distinct userid from lifecycle;
+/*все ответственные по обращению*/
+select distinct responsibleid from issue;
+/*Кол-во обращений на каждом ответственном*/
+select responsibleid, count(*) as count from issue where statusid = 2 group by responsibleid order by count desc;
+
+/*
+DELETE FROM public.lifecycle where id = 151;
+DELETE FROM public.sessions;
+DELETE FROM public.issue;
+*/
+
+SELECT * FROM public.status;
+SELECT * FROM public.categories;
+
+SELECT * FROM lifecycle Where issueid = 15 order by id;

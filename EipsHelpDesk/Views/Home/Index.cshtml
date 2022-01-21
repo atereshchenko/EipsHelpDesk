@@ -1,0 +1,167 @@
+﻿@using EipsHelpDesk.Models
+@model IssueViewModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Главная</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- /.col (LEFT) -->
+            <div class="col-md">
+                <!-- BAR CHART -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Bar Chart</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>*@
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col (RIGHT) -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section VendersScripts
+{
+    <script src="../../plugins/chart.js/Chart.min.js"></script>
+}
+
+@section CustomScripts
+{
+    <script>
+        var responsibles = @Json.Serialize(Model.Responsibles);
+        var owners = [];
+        for (var i = 0; i < responsibles.length; i++) {
+            owners.push(responsibles[i].name);
+        }
+
+        var statuses = @Json.Serialize(Model.Statuses);
+        var statusmodel = [];
+        for (var i = 0; i < statuses.length; i++) {
+            statusmodel.push(statuses[i].name);
+        }
+
+        var stnew = [];
+        var stprogres = [];
+        var stfixed = [];
+        var stcencel = [];
+        var stclose = [];
+
+        for (var i = 0; i < responsibles.length; i++) {
+            stnew.push(responsibles[i].stnew);
+            stprogres.push(responsibles[i].stprogres);
+            stfixed.push(responsibles[i].stfixed);
+            stcencel.push(responsibles[i].stcencel);
+            stclose.push(responsibles[i].stclose);
+        }
+
+        $(function () {
+            var areaChartData = {
+                labels: owners,
+                datasets: [
+                    {
+                        label: statusmodel[0],
+                        backgroundColor: 'rgba(0, 123, 255,0.9)',
+                        borderColor: 'rgba(0, 123, 255,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(0, 123, 255,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: stnew
+                    },
+                    {
+                        label: statusmodel[1],
+                        backgroundColor: 'rgba(23, 162, 184, 1)',
+                        borderColor: 'rgba(23, 162, 184, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(23, 162, 184, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: stprogres
+                    },
+                    {
+                        label: statusmodel[2],
+                        backgroundColor: 'rgba(40, 167, 69, 1)',
+                        borderColor: 'rgba(40, 167, 69, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(40, 167, 69, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: stfixed
+                    },
+                    {
+                        label: statusmodel[3],
+                        backgroundColor: 'rgba(220, 53, 69, 1)',
+                        borderColor: 'rgba(220, 53, 69, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(220, 53, 69, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: stcencel
+                    },
+                    {
+                        label: statusmodel[4],
+                        backgroundColor: 'rgba(108, 117, 125, 1)',
+                        borderColor: 'rgba(108, 117, 125, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(108, 117, 125, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: stclose
+                    },
+                ]
+            }
+
+            var barChartCanvas = $('#barChart').get(0).getContext('2d')
+            var barChartData = $.extend(true, {}, areaChartData)
+
+            var barChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                datasetFill: false
+            }
+
+            new Chart(barChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            })
+        })
+    </script>
+}

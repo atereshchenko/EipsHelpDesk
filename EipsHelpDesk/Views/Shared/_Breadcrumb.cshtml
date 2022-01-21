@@ -1,0 +1,35 @@
+﻿@{
+    List<EipsHelpDesk.Models.Breadcrumb> Breadcrumb = ViewBag.Breadcrumbs;
+    var item = Breadcrumb.Last();
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@item.Name</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    @foreach (var items in Breadcrumb.OrderBy(i => i.Id))
+                    {
+                        if (items != Breadcrumb.Last())
+                        {
+                            if (items.Route != "")
+                            {
+                                <li class="breadcrumb-item"><a asp-controller="@items.Controller" asp-action="@items.Action" asp-route-id="@items.Route">@items.Value</a></li>
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item"><a asp-controller="@items.Controller" asp-action="@items.Action">@items.Value</a></li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item">@items.Value</li>
+                        }
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

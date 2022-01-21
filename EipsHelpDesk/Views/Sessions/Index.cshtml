@@ -1,0 +1,94 @@
+﻿@using EipsHelpDesk.Models
+@using System.Globalization;
+@model IssueViewModel
+@{
+    Layout = "_Layout";
+}
+@await Html.PartialAsync("_Breadcrumb")
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Список сессий пользователей</h3>
+                        <div class="card-tools">
+                            @*<form method="get">
+                                <div class="input-group input-group-sm" style="width: 300px;">
+                                    <input type="text" name="taskId" value="" class="form-control float-right" placeholder="enter the task id...">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>*@
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-head-fixed table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th width="160px">CreatedOn</th>
+                                    <th>UserId</th>
+                                    <th>Login</th>
+                                    <th>Action</th>
+                                    <th>Result</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Sessions)
+                                {
+                                    <tr>
+                                        <td>@item.id</td>
+                                        <td>@item.createdon.ToString("g", CultureInfo.CreateSpecificCulture("ru-RU"))</td>
+                                        <td>@item.userid</td>
+                                        <td><a asp-controller="users" asp-action="view" asp-route-id="@item.userid">@item.login</a></td>
+                                        <td>@item.action</td>
+                                        <td>@item.result</td>                                        
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers">
+                    <ul class="pagination">
+                        @if (Model.PageViewModel.HasPreviousPage)
+                        {
+                            <li class="paginate_button page-item">
+                                <a asp-controller="sessions" asp-action="index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="page-link">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Back to
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="paginate_button page-item previous disabled">
+                                <a asp-controller="sessions" asp-action="index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="page-link">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Back to
+                                </a>
+                            </li>
+                        }
+                        @if (Model.PageViewModel.HasNextPage)
+                        {
+                            <li class="paginate_button page-item">
+                                <a asp-controller="sessions" asp-action="index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" class="page-link">
+                                    Next
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

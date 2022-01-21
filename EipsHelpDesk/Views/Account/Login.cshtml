@@ -1,0 +1,54 @@
+﻿@model EipsHelpDesk.Models.LoginModel
+@{ 
+    Layout = "_Login";
+    ViewData["Title"] = "Control Panel";
+}
+<div class="card">
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">Необходимо авторизоваться</p>
+        <form method="post" asp-controller="account" asp-action="login" asp-route-returnUrl="@Model.ReturnUrl">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="input-group mb-3">
+                <input asp-for="Login" class="form-control text-box single-line" data-val="true" data-val-required="Требуется поле Login." id="Username" name="Login" placeholder="Email" type="text" value="">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+                <span asp-validation-for="Login"></span>
+            </div>
+            <div class="input-group mb-3">
+                <input asp-for="Password" class="form-control text-box single-line password" data-val="true" data-val-required="Требуется поле Password." id="Password" name="Password" placeholder="Пароль" type="password" value="">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="row">
+                <div class="col-4">                   
+                    <button class="btn btn-primary disabled" href="#" disabled>ADFS</button>
+                    @*<button class="btn btn-primary toastrDefaultError" href="#" >ADFS</button>*@
+                    @*<a class="btn btn-primary disabled" href="#" role="button" disabled>Link</a>*@
+                </div>                
+                <div class="col-4">                   
+                </div>               
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Вход</button>
+                </div>               
+            </div>
+        </form>        
+    </div>    
+</div>
+
+@section VendersScripts
+{
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+}
+
+@section CustomScripts
+{
+    <script>      
+    </script>
+}
