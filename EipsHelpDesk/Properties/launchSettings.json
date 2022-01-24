@@ -19,11 +19,11 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "PG_DATABASE": "eipshelpdesk1",
-        "PG_PASSWORD": "A1aaaaaa",
-        "PG_PORT": "5432",
-        "PG_SERVER": "localhost",
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "PG_DATABASE": "eipshelpdesk",
+        "PG_PASSWORD": "A1aaaaaa",
+        "PG_SERVER": "localhost",
+        "PG_PORT": "5432",
         "PG_USERNAME": "postgres"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
